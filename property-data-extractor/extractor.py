@@ -6,13 +6,13 @@ file = open("password.txt", "r")
 password = file.read().strip()
 connection_string = f"mongodb+srv://mkrul:{password}@cluster0-uadok.mongodb.net/test?retryWrites=true"
 
-id = 0
+id = 100000
 param_data = {
     "parcelid": "",
     "debug[currentURL]": "",
 }
 
-while id < 200000:
+while id < 300500:
     id += 1
     url = f"https://property.spatialest.com/nc/durham/#/property/{id}"
     file_url = f"https://5c5a99sucl.execute-api.us-east-1.amazonaws.com/Prod/durhamImageLister?filename={id}&size=1000x1000"
@@ -31,9 +31,7 @@ while id < 200000:
     else:
         response_json = response.json()
         land_use = response_json["parcel"]["keyinfo"][5]["value"]
-        if "1-FAMILY" in land_use:
-            continue
-        else:
+        if "2-FAMILY" in land_use:
             print("Multifamily property found!")
             img_url = None
             image_response = requests.post(file_url)
@@ -176,7 +174,7 @@ while id < 200000:
 
             client = MongoClient(connection_string)
             db = client["properties"]
-            collection = db["properties"]
+            collection = db["2-FAMILY"]
             collection.insert_one(property_data)
 
 
