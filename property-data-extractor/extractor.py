@@ -6,7 +6,7 @@ file = open("password.txt", "r")
 password = file.read().strip()
 connection_string = f"mongodb+srv://mkrul:{password}@cluster0-uadok.mongodb.net/test?retryWrites=true"
 
-id = 112540
+id = 0
 param_data = {
     "parcelid": "",
     "debug[currentURL]": "",
